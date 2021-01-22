@@ -1,0 +1,29 @@
+Overview
+========
+
+Converters from str to another type.
+
+Installation
+------------
+
+.. highlight:: none
+
+::
+
+# pip install typeconvs
+
+
+Requirements
+------------
+
+.. include:: requirements.incl
+
+
+Links
+-----
+
+- PyPI: https://pypi.org/project/typeconvs/
+- GitHub: https://github.com/andreas19/typeconvs/
+
+
+.. include:: ../../CHANGELOG.md

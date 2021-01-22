@@ -1,0 +1,343 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>typeconvs &#8212; TypeConvs 0.0.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">TypeConvs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for typeconvs</h1><div class="highlight"><pre>
+<span></span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Converters from :class:`str` to another type.</span>
+
+<span class="sd">These functions can be used for the ``type`` parameter in methods of</span>
+<span class="sd">:class:`~argparse.ArgumentParser` and :class:`~argparsebuilder.ArgParseBuilder`</span>
+<span class="sd">or similar use cases.</span>
+
+<span class="sd">All functions raise :class:`ValueError`\ s if the string cannot be converted.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">locale</span>
+<span class="kn">from</span> <span class="nn">importlib.resources</span> <span class="kn">import</span> <span class="n">read_text</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="n">read_text</span><span class="p">(</span><span class="n">__package__</span><span class="p">,</span> <span class="s1">&#39;VERSION&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;booleans&#39;</span><span class="p">,</span> <span class="s1">&#39;use_locale_default&#39;</span><span class="p">,</span> <span class="s1">&#39;boolean&#39;</span><span class="p">,</span> <span class="s1">&#39;int_conv&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;float_conv&#39;</span><span class="p">,</span> <span class="s1">&#39;factor_conv&#39;</span><span class="p">,</span> <span class="s1">&#39;duration&#39;</span><span class="p">,</span> <span class="s1">&#39;datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">]</span>
+
+<span class="n">use_locale_default</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="sd">&quot;&quot;&quot;Default value for :func:`int_conv` and :func:`float_conv`</span>
+<span class="sd">for parameter ``use_locale``.&quot;&quot;&quot;</span>
+
+<span class="n">booleans</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;false&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;no&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;n&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;0&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;off&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;true&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;yes&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;y&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;1&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s1">&#39;on&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">}</span>  <span class="c1">#: Mapping from strings to boolean values.</span>
+
+
+<div class="viewcode-block" id="boolean"><a class="viewcode-back" href="../api.html#typeconvs.boolean">[docs]</a><span class="k">def</span> <span class="nf">boolean</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a string to a boolean value.</span>
+
+<span class="sd">    The ``string`` is converted to lower case before</span>
+<span class="sd">    looking up the boolean value in ``values`` or :data:`booleans`</span>
+<span class="sd">    (if ``values`` is ``None``).</span>
+
+<span class="sd">    :param str string: input string</span>
+<span class="sd">    :value dict: mapping from strings to booleans</span>
+<span class="sd">    :return: converted value</span>
+<span class="sd">    :rtype: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">booleans</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">string</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid boolean: </span><span class="si">{</span><span class="n">string</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span></div>
+
+
+<div class="viewcode-block" id="int_conv"><a class="viewcode-back" href="../api.html#typeconvs.int_conv">[docs]</a><span class="k">def</span> <span class="nf">int_conv</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a string to an integer value.</span>
+
+<span class="sd">    &gt;&gt;&gt; import locale</span>
+<span class="sd">    &gt;&gt;&gt; locale.setlocale(locale.LC_ALL, &#39;de_DE.UTF-8&#39;)</span>
+<span class="sd">    &#39;de_DE.UTF-8&#39;</span>
+<span class="sd">    &gt;&gt;&gt; int_conv(&#39;1.234&#39;, use_locale=True)</span>
+<span class="sd">    1234</span>
+<span class="sd">    &gt;&gt;&gt; locale.setlocale(locale.LC_ALL, &#39;en_US.UTF-8&#39;)</span>
+<span class="sd">    &#39;en_US.UTF-8&#39;</span>
+<span class="sd">    &gt;&gt;&gt; int_conv(&#39;1,234&#39;, use_locale=True)</span>
+<span class="sd">    1234</span>
+<span class="sd">    &gt;&gt;&gt; int_conv(&#39;-1&#39;, pred=lambda x: x &gt; 0)</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">      ...</span>
+<span class="sd">    ValueError: invalid value: &#39;-1&#39;</span>
+
+<span class="sd">    See :class:`int` for an explanation of parameter ``base``.</span>
+
+<span class="sd">    :param str string: input string</span>
+<span class="sd">    :param int base: base (&gt;= 2 and &lt;= 36, or 0)</span>
+<span class="sd">    :param pred: predicate function</span>
+<span class="sd">    :param use_locale: ``True`` use current locale; ``None`` use</span>
+<span class="sd">                       :data:`use_locale_default`</span>
+<span class="sd">    :type use_locale: bool or None</span>
+<span class="sd">    :return: converted value</span>
+<span class="sd">    :rtype: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">use_locale</span> <span class="k">if</span> <span class="n">use_locale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">use_locale_default</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="n">delocalize</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">base</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pred</span> <span class="ow">or</span> <span class="n">pred</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid value: </span><span class="si">{</span><span class="n">string</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="float_conv"><a class="viewcode-back" href="../api.html#typeconvs.float_conv">[docs]</a><span class="k">def</span> <span class="nf">float_conv</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_locale</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a string to a float value.</span>
+
+<span class="sd">    :param str string: input string</span>
+<span class="sd">    :param int base: base (&gt;= 2 and &lt;= 36, or 0)</span>
+<span class="sd">    :param pred: predicate function</span>
+<span class="sd">    :param use_locale: ``True`` use current locale; ``None`` use</span>
+<span class="sd">                       :data:`use_locale_default`</span>
+<span class="sd">    :type use_locale: bool or None</span>
+<span class="sd">    :return: converted value</span>
+<span class="sd">    :rtype: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">use_locale</span> <span class="k">if</span> <span class="n">use_locale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">use_locale_default</span><span class="p">):</span>
+        <span class="n">string</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="n">delocalize</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">base</span> <span class="o">!=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">base</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">base</span> <span class="o">&lt;=</span> <span class="mi">36</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;base must be &gt;= 2 and &lt;= 36, or 0&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">b</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">base</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">prefix</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;0b&#39;</span><span class="p">:</span>
+                        <span class="n">devisor</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                    <span class="k">elif</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;0o&#39;</span><span class="p">:</span>
+                        <span class="n">devisor</span> <span class="o">=</span> <span class="mi">8</span><span class="o">**</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                    <span class="k">elif</span> <span class="n">prefix</span> <span class="o">==</span> <span class="s1">&#39;0x&#39;</span><span class="p">:</span>
+                        <span class="n">devisor</span> <span class="o">=</span> <span class="mi">16</span><span class="o">**</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">devisor</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+                    <span class="n">devisor</span> <span class="o">=</span> <span class="n">base</span><span class="o">**</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+                <span class="n">frac</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">base</span><span class="o">=</span><span class="n">base</span><span class="p">)</span> <span class="o">/</span> <span class="n">devisor</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">frac</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">base</span><span class="p">)</span> <span class="o">+</span> <span class="n">frac</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">&#39;could not convert string to float: </span><span class="si">{</span><span class="n">string</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pred</span> <span class="ow">or</span> <span class="n">pred</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid value: </span><span class="si">{</span><span class="n">string</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="factor_conv"><a class="viewcode-back" href="../api.html#typeconvs.factor_conv">[docs]</a><span class="k">def</span> <span class="nf">factor_conv</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">conv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">factors</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a string with a factor.</span>
+
+<span class="sd">    The symbols from ``factors`` are compared to the end of ``string``</span>
+<span class="sd">    until one matches. The ``string`` is then shortend by the the length</span>
+<span class="sd">    of the symbol and the rest converted with ``conv`` and multiplied by</span>
+<span class="sd">    the factor that corresponds to the symbol.</span>
+
+<span class="sd">    &gt;&gt;&gt; factors = {&#39;h&#39;: 3600, &#39;m&#39;: 60, &#39;s&#39;: 1}</span>
+<span class="sd">    &gt;&gt;&gt; factor_conv(&#39;10m&#39;, conv=int, factors=factors)</span>
+<span class="sd">    600</span>
+
+<span class="sd">    :param str string: input string</span>
+<span class="sd">    :param conv: converter function</span>
+<span class="sd">    :param dict factors: mapping from symbol to factor</span>
+<span class="sd">    :return: converted value</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">factors</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">sym</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">sym</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">conv</span><span class="p">(</span><span class="n">string</span><span class="p">[:</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">sym</span><span class="p">)])</span> <span class="o">*</span> <span class="n">factors</span><span class="p">[</span><span class="n">sym</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">conv</span><span class="p">(</span><span class="n">string</span><span class="p">)</span> <span class="o">*</span> <span class="n">factors</span><span class="p">[</span><span class="n">sym</span><span class="p">]</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;invalid value: </span><span class="si">{</span><span class="n">string</span><span class="si">!r}</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="datetime"><a class="viewcode-back" href="../api.html#typeconvs.datetime">[docs]</a><span class="k">def</span> <span class="nf">datetime</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a string to a :class:`datetime.datetime`.</span>
+
+<span class="sd">    If ``format=None`` this function uses</span>
+<span class="sd">    :meth:`datetime.datetime.fromisoformat` else</span>
+<span class="sd">    :meth:`datetime.datetime.strptime`.</span>
+
+<span class="sd">    :param str string: datetime string</span>
+<span class="sd">    :param format: format string</span>
+<span class="sd">    :type format: str or None</span>
+<span class="sd">    :return: converted datetime</span>
+<span class="sd">    :rtype: datetime.datetime</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="date"><a class="viewcode-back" href="../api.html#typeconvs.date">[docs]</a><span class="k">def</span> <span class="nf">date</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a string to a class:`datetime.date`.</span>
+
+<span class="sd">    If ``format=None`` this function uses</span>
+<span class="sd">    :meth:`datetime.date.fromisoformat` else</span>
+<span class="sd">    :meth:`datetime.datetime.strptime`.</span>
+
+<span class="sd">    :param str string: date string</span>
+<span class="sd">    :param format: format string</span>
+<span class="sd">    :return: converted date</span>
+<span class="sd">    :rtype: datetime.date</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="time"><a class="viewcode-back" href="../api.html#typeconvs.time">[docs]</a><span class="k">def</span> <span class="nf">time</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert a string to a :class:`datetime.time`.</span>
+
+<span class="sd">    If ``format=None`` this function uses</span>
+<span class="sd">    :meth:`datetime.time.fromisoformat` else</span>
+<span class="sd">    :meth:`datetime.datetime.strptime`.</span>
+
+<span class="sd">    :param str string: time string</span>
+<span class="sd">    :param format: format string</span>
+<span class="sd">    :return: converted time</span>
+<span class="sd">    :rtype: datetime.time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">format</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="nb">format</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="duration"><a class="viewcode-back" href="../api.html#typeconvs.duration">[docs]</a><span class="k">def</span> <span class="nf">duration</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Convert duration string to seconds.</span>
+
+<span class="sd">    Format: [[H:]M:]S[.f]</span>
+
+<span class="sd">    See also: :func:`salmagundi.strings.parse_timedelta`</span>
+
+<span class="sd">    :param str string: duration string</span>
+<span class="sd">    :return: converted duration</span>
+<span class="sd">    :rtype: float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">60.0</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">3600.0</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="mf">60.0</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;invalid duration&#39;</span><span class="p">)</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Andreas Suhre.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

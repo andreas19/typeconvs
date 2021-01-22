@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Reference &#8212; TypeConvs 0.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="License" href="license.html" />
+    <link rel="prev" title="Overview" href="overview.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  <div class="document">
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TypeConvs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="overview.html" title="previous chapter">Overview</a></li>
+      <li>Next: <a href="license.html" title="next chapter">License</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-typeconvs">
+<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-typeconvs" title="Permalink to this headline">¶</a></h1>
+<p>Converters from <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> to another type.</p>
+<p>These functions can be used for the <code class="docutils literal notranslate"><span class="pre">type</span></code> parameter in methods of
+<a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentParser</span></code></a> and <a class="reference external" href="https://andreas19.github.io/argparsebuilder/api.html#argparsebuilder.ArgParseBuilder" title="(in ArgParseBuilder v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgParseBuilder</span></code></a>
+or similar use cases.</p>
+<p>All functions raise <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a>s if the string cannot be converted.</p>
+<dl class="py data">
+<dt id="typeconvs.booleans">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">booleans</code><em class="property"> = {'0': False, '1': True, 'f': False, 'false': False, 'n': False, 'no': False, 'off': False, 'on': True, 't': True, 'true': True, 'y': True, 'yes': True}</em><a class="headerlink" href="#typeconvs.booleans" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mapping from strings to boolean values.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt id="typeconvs.use_locale_default">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">use_locale_default</code><em class="property"> = False</em><a class="headerlink" href="#typeconvs.use_locale_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default value for <a class="reference internal" href="#typeconvs.int_conv" title="typeconvs.int_conv"><code class="xref py py-func docutils literal notranslate"><span class="pre">int_conv()</span></code></a> and <a class="reference internal" href="#typeconvs.float_conv" title="typeconvs.float_conv"><code class="xref py py-func docutils literal notranslate"><span class="pre">float_conv()</span></code></a>
+for parameter <code class="docutils literal notranslate"><span class="pre">use_locale</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="typeconvs.boolean">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">boolean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">values</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#boolean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.boolean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a boolean value.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">string</span></code> is converted to lower case before
+looking up the boolean value in <code class="docutils literal notranslate"><span class="pre">values</span></code> or <a class="reference internal" href="#typeconvs.booleans" title="typeconvs.booleans"><code class="xref py py-data docutils literal notranslate"><span class="pre">booleans</span></code></a>
+(if <code class="docutils literal notranslate"><span class="pre">values</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – input string</p>
+</dd>
+<dt class="field-even">Value dict</dt>
+<dd class="field-even"><p>mapping from strings to booleans</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>converted value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="typeconvs.int_conv">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">int_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">base</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">pred</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">use_locale</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#int_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.int_conv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to an integer value.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">locale</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="s1">&#39;de_DE.UTF-8&#39;</span><span class="p">)</span>
+<span class="go">&#39;de_DE.UTF-8&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">int_conv</span><span class="p">(</span><span class="s1">&#39;1.234&#39;</span><span class="p">,</span> <span class="n">use_locale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">1234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="s1">&#39;en_US.UTF-8&#39;</span><span class="p">)</span>
+<span class="go">&#39;en_US.UTF-8&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">int_conv</span><span class="p">(</span><span class="s1">&#39;1,234&#39;</span><span class="p">,</span> <span class="n">use_locale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">1234</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">int_conv</span><span class="p">(</span><span class="s1">&#39;-1&#39;</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  <span class="c">...</span>
+<span class="gr">ValueError</span>: <span class="n">invalid value: &#39;-1&#39;</span>
+</pre></div>
+</div>
+<p>See <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> for an explanation of parameter <code class="docutils literal notranslate"><span class="pre">base</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – input string</p></li>
+<li><p><strong>base</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – base (&gt;= 2 and &lt;= 36, or 0)</p></li>
+<li><p><strong>pred</strong> – predicate function</p></li>
+<li><p><strong>use_locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – <code class="docutils literal notranslate"><span class="pre">True</span></code> use current locale; <code class="docutils literal notranslate"><span class="pre">None</span></code> use
+<a class="reference internal" href="#typeconvs.use_locale_default" title="typeconvs.use_locale_default"><code class="xref py py-data docutils literal notranslate"><span class="pre">use_locale_default</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="typeconvs.float_conv">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">float_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">base</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">pred</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">use_locale</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#float_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.float_conv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a float value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – input string</p></li>
+<li><p><strong>base</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – base (&gt;= 2 and &lt;= 36, or 0)</p></li>
+<li><p><strong>pred</strong> – predicate function</p></li>
+<li><p><strong>use_locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – <code class="docutils literal notranslate"><span class="pre">True</span></code> use current locale; <code class="docutils literal notranslate"><span class="pre">None</span></code> use
+<a class="reference internal" href="#typeconvs.use_locale_default" title="typeconvs.use_locale_default"><code class="xref py py-data docutils literal notranslate"><span class="pre">use_locale_default</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted value</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="typeconvs.factor_conv">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">factor_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">conv</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">factors</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#factor_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.factor_conv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string with a factor.</p>
+<p>The symbols from <code class="docutils literal notranslate"><span class="pre">factors</span></code> are compared to the end of <code class="docutils literal notranslate"><span class="pre">string</span></code>
+until one matches. The <code class="docutils literal notranslate"><span class="pre">string</span></code> is then shortend by the the length
+of the symbol and the rest converted with <code class="docutils literal notranslate"><span class="pre">conv</span></code> and multiplied by
+the factor that corresponds to the symbol.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">factors</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;h&#39;</span><span class="p">:</span> <span class="mi">3600</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">factor_conv</span><span class="p">(</span><span class="s1">&#39;10m&#39;</span><span class="p">,</span> <span class="n">conv</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">factors</span><span class="o">=</span><span class="n">factors</span><span class="p">)</span>
+<span class="go">600</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – input string</p></li>
+<li><p><strong>conv</strong> – converter function</p></li>
+<li><p><strong>factors</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – mapping from symbol to factor</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted value</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="typeconvs.duration">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#duration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.duration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert duration string to seconds.</p>
+<p>Format: [[H:]M:]S[.f]</p>
+<p>See also: <a class="reference external" href="https://andreas19.github.io/salmagundi/mod_strings.html#salmagundi.strings.parse_timedelta" title="(in Salmagundi v0.16.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">salmagundi.strings.parse_timedelta()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – duration string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted duration</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="typeconvs.datetime">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">datetime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#datetime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">format=None</span></code> this function uses
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime.fromisoformat" title="(in Python v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.datetime.fromisoformat()</span></code></a> else
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime.strptime" title="(in Python v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.datetime.strptime()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – datetime string</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – format string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted datetime</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)">datetime.datetime</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="typeconvs.date">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.date" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a class:<cite>datetime.date</cite>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">format=None</span></code> this function uses
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat" title="(in Python v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.date.fromisoformat()</span></code></a> else
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime.strptime" title="(in Python v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.datetime.strptime()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – date string</p></li>
+<li><p><strong>format</strong> – format string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted date</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.9)">datetime.date</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="typeconvs.time">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a string to a <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.time" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.time</span></code></a>.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">format=None</span></code> this function uses
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.time.fromisoformat" title="(in Python v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.time.fromisoformat()</span></code></a> else
+<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime.strptime" title="(in Python v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.datetime.strptime()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – time string</p></li>
+<li><p><strong>format</strong> – format string</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted time</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.time" title="(in Python v3.9)">datetime.time</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+    <div class="clearer"></div>
+  </div>
+    <div class="footer">
+      &copy;2021, Andreas Suhre.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
