@@ -83,7 +83,7 @@
 <span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-typeconvs" title="Permalink to this headline">¶</a></h1>
 <p>Converters from <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> to another type.</p>
 <p>These functions can be used for the <code class="docutils literal notranslate"><span class="pre">type</span></code> parameter in methods of
-<a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentParser</span></code></a> and <a class="reference external" href="https://andreas19.github.io/argparsebuilder/api.html#argparsebuilder.ArgParseBuilder" title="(in ArgParseBuilder v0.0.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgParseBuilder</span></code></a>
+<a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentParser</span></code></a> and <a class="reference external" href="https://andreas19.github.io/argparsebuilder/api.html#argparsebuilder.ArgParseBuilder" title="(in ArgParse­Builder v0.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgParseBuilder</span></code></a>
 or similar use cases.</p>
 <p>All functions raise <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a>s if the string cannot be converted.</p>
 <dl class="py data">
@@ -213,13 +213,17 @@ the factor that corresponds to the symbol.</p>
 
 <dl class="py function">
 <dt id="typeconvs.duration">
-<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#duration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.duration" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">use_locale</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#duration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert duration string to seconds.</p>
 <p>Format: [[H:]M:]S[.f]</p>
-<p>See also: <a class="reference external" href="https://andreas19.github.io/salmagundi/mod_strings.html#salmagundi.strings.parse_timedelta" title="(in Salmagundi v0.16.0)"><code class="xref py py-func docutils literal notranslate"><span class="pre">salmagundi.strings.parse_timedelta()</span></code></a></p>
+<p>See also: <code class="xref py py-func docutils literal notranslate"><span class="pre">salmagundi.strings.parse_timedelta()</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – duration string</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – duration string</p></li>
+<li><p><strong>use_locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)"><em>None</em></a>) – <code class="docutils literal notranslate"><span class="pre">True</span></code> use current locale; <code class="docutils literal notranslate"><span class="pre">None</span></code> use
+<a class="reference internal" href="#typeconvs.use_locale_default" title="typeconvs.use_locale_default"><code class="xref py py-data docutils literal notranslate"><span class="pre">use_locale_default</span></code></a></p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>converted duration</p>
@@ -228,6 +232,9 @@ the factor that corresponds to the symbol.</p>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
 </dd>
 </dl>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.1.1: </span>Add parameter <code class="docutils literal notranslate"><span class="pre">use_locale</span></code></p>
+</div>
 </dd></dl>
 
 <dl class="py function">

@@ -220,7 +220,7 @@ def time(string, format=None):
         return dt.datetime.strptime(string, format).time()
 
 
-def duration(string):
+def duration(string, use_locale=None):
     """Convert duration string to seconds.
 
     Format: [[H:]M:]S[.f]
@@ -228,14 +228,25 @@ def duration(string):
     See also: :func:`salmagundi.strings.parse_timedelta`
 
     :param str string: duration string
+    :param use_locale: ``True`` use current locale; ``None`` use
+                       :data:`use_locale_default`
+    :type use_locale: bool or None
     :return: converted duration
     :rtype: float
+
+    .. versionchanged:: 0.1.1 Add parameter ``use_locale``
     """
+    h, m, s = 0, 0, 0
     a = string.split(':')
-    if len(a) == 1:
-        return float(string)
-    if len(a) == 2:
-        return int(a[0]) * 60.0 + float(a[1])
-    if len(a) == 3:
-        return int(a[0]) * 3600.0 + int(a[1]) * 60.0 + float(a[2])
-    raise ValueError('invalid duration')
+    try:
+        s = float_conv(a[-1], pred=lambda x: 0.0 <= x < 60.0,
+                       use_locale=use_locale)
+        if len(a) >= 2:
+            m = int_conv(a[-2], pred=lambda x: 0 <= x < 60)
+        if len(a) == 3:
+            h = int_conv(a[0], pred=lambda x: 0 <= x, use_locale=use_locale)
+        if len(a) > 3:
+            raise ValueError
+    except ValueError:
+        raise ValueError(f'invalid duration: {string!r}')
+    return h * 3600.0 + m * 60.0 + s
