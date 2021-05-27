@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Overview &#8212; TypeConvs 0.1.1 documentation</title>
+    <title>Overview &#8212; TypeConvs 0.2.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -15,8 +15,8 @@
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Reference" href="api.html" />
-    <link rel="prev" title="TypeConvs 0.1.1" href="index.html" />
+    <link rel="next" title="API Reference" href="mod_api.html" />
+    <link rel="prev" title="TypeConvs 0.2.0" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -46,7 +46,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#history">History</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mod_api.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -54,8 +54,8 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">TypeConvs 0.1.1</a></li>
-      <li>Next: <a href="api.html" title="next chapter">API Reference</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">TypeConvs 0.2.0</a></li>
+      <li>Next: <a href="mod_api.html" title="next chapter">API Reference</a></li>
   </ul></li>
 </ul>
 </div>
@@ -109,6 +109,15 @@
 </div>
 <div class="section" id="history">
 <h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Add overview table to API documentation</p></li>
+<li><p>All parameters but ‘string’ are now keyword-only</p></li>
+<li><p>Add functions sequence and range_conv</p></li>
+<li><p>Rename functions: boolean -&gt; bool_conv, datetime -&gt; datetime_conv,
+date -&gt; date_conv, and time -&gt; time_conv</p></li>
+</ul>
+</div></blockquote>
 <dl class="simple">
 <dt><strong>2021-01-25 (0.1.1)</strong></dt><dd><ul class="simple">
 <li><p>Bugfix: function duration now raises ValueError when hour, minute, or second

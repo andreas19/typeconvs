@@ -1,6 +1,12 @@
 History
 -------
 
+ - Add overview table to API documentation
+ - All parameters but 'string' are now keyword-only
+ - Add functions sequence and range_conv
+ - Rename functions: boolean -> bool_conv, datetime -> datetime_conv,
+   date -> date_conv, and time -> time_conv
+
 **2021-01-25 (0.1.1)**
  - Bugfix: function duration now raises ValueError when hour, minute, or second
    are negative or when minute or second are > 59

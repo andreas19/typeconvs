@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Reference &#8212; TypeConvs 0.1.1 documentation</title>
+    <title>API Reference &#8212; TypeConvs 0.2.0 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -40,7 +40,10 @@
 <h3>Navigation</h3>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
 </ul>
 
@@ -86,6 +89,52 @@
 <a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgumentParser</span></code></a> and <a class="reference external" href="https://andreas19.github.io/argparsebuilder/api.html#argparsebuilder.ArgParseBuilder" title="(in ArgParse­Builder v0.1.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ArgParseBuilder</span></code></a>
 or similar use cases.</p>
 <p>All functions raise <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></a>s if the string cannot be converted.</p>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#typeconvs.booleans" title="typeconvs.booleans"><code class="xref py py-obj docutils literal notranslate"><span class="pre">booleans</span></code></a></p></td>
+<td><p>Mapping from strings to boolean values.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#typeconvs.use_locale_default" title="typeconvs.use_locale_default"><code class="xref py py-obj docutils literal notranslate"><span class="pre">use_locale_default</span></code></a></p></td>
+<td><p>Default value for <a class="reference internal" href="#typeconvs.int_conv" title="typeconvs.int_conv"><code class="xref py py-func docutils literal notranslate"><span class="pre">int_conv()</span></code></a> and <a class="reference internal" href="#typeconvs.float_conv" title="typeconvs.float_conv"><code class="xref py py-func docutils literal notranslate"><span class="pre">float_conv()</span></code></a> for parameter <code class="docutils literal notranslate"><span class="pre">use_locale</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#typeconvs.bool_conv" title="typeconvs.bool_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool_conv</span></code></a></p></td>
+<td><p>Convert a string to a boolean value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#typeconvs.int_conv" title="typeconvs.int_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int_conv</span></code></a></p></td>
+<td><p>Convert a string to an integer value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#typeconvs.float_conv" title="typeconvs.float_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float_conv</span></code></a></p></td>
+<td><p>Convert a string to a float value.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#typeconvs.factor_conv" title="typeconvs.factor_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">factor_conv</span></code></a></p></td>
+<td><p>Convert a string with a factor.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#typeconvs.duration" title="typeconvs.duration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">duration</span></code></a></p></td>
+<td><p>Convert duration string to seconds.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#typeconvs.datetime_conv" title="typeconvs.datetime_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">datetime_conv</span></code></a></p></td>
+<td><p>Convert a string to a <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#typeconvs.date_conv" title="typeconvs.date_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">date_conv</span></code></a></p></td>
+<td><p>Convert a string to a class:<cite>datetime.date</cite>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#typeconvs.time_conv" title="typeconvs.time_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">time_conv</span></code></a></p></td>
+<td><p>Convert a string to a <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.time" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.time</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#typeconvs.range_conv" title="typeconvs.range_conv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">range_conv</span></code></a></p></td>
+<td><p>Convert a range string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#typeconvs.sequence" title="typeconvs.sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sequence</span></code></a></p></td>
+<td><p>Convert a sequence string.</p></td>
+</tr>
+</tbody>
+</table>
 <dl class="py data">
 <dt id="typeconvs.booleans">
 <code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">booleans</code><em class="property"> = {'0': False, '1': True, 'f': False, 'false': False, 'n': False, 'no': False, 'off': False, 'on': True, 't': True, 'true': True, 'y': True, 'yes': True}</em><a class="headerlink" href="#typeconvs.booleans" title="Permalink to this definition">¶</a></dt>
@@ -100,8 +149,8 @@ for parameter <code class="docutils literal notranslate"><span class="pre">use_l
 </dd></dl>
 
 <dl class="py function">
-<dt id="typeconvs.boolean">
-<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">boolean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">values</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#boolean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.boolean" title="Permalink to this definition">¶</a></dt>
+<dt id="typeconvs.bool_conv">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">bool_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">values</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#bool_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.bool_conv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a string to a boolean value.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">string</span></code> is converted to lower case before
 looking up the boolean value in <code class="docutils literal notranslate"><span class="pre">values</span></code> or <a class="reference internal" href="#typeconvs.booleans" title="typeconvs.booleans"><code class="xref py py-data docutils literal notranslate"><span class="pre">booleans</span></code></a>
@@ -119,7 +168,13 @@ looking up the boolean value in <code class="docutils literal notranslate"><span
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
 </dl>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.2.0: </span>Renamed (old name: boolean)</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -158,6 +213,9 @@ looking up the boolean value in <code class="docutils literal notranslate"><span
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -181,12 +239,15 @@ looking up the boolean value in <code class="docutils literal notranslate"><span
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="typeconvs.factor_conv">
-<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">factor_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">conv</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">factors</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#factor_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.factor_conv" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">factor_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">conv</span></em>, <em class="sig-param"><span class="n">factors</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#factor_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.factor_conv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a string with a factor.</p>
 <p>The symbols from <code class="docutils literal notranslate"><span class="pre">factors</span></code> are compared to the end of <code class="docutils literal notranslate"><span class="pre">string</span></code>
 until one matches. The <code class="docutils literal notranslate"><span class="pre">string</span></code> is then shortend by the the length
@@ -208,12 +269,15 @@ the factor that corresponds to the symbol.</p>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>converted value</p>
 </dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="typeconvs.duration">
-<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">use_locale</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#duration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.duration" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">duration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">use_locale</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#duration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert duration string to seconds.</p>
 <p>Format: [[H:]M:]S[.f]</p>
 <p>See also: <code class="xref py py-func docutils literal notranslate"><span class="pre">salmagundi.strings.parse_timedelta()</span></code></p>
@@ -231,6 +295,9 @@ the factor that corresponds to the symbol.</p>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
 </dl>
 <div class="versionchanged">
 <p><span class="versionmodified changed">Changed in version 0.1.1: </span>Add parameter <code class="docutils literal notranslate"><span class="pre">use_locale</span></code></p>
@@ -238,8 +305,8 @@ the factor that corresponds to the symbol.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="typeconvs.datetime">
-<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">datetime</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#datetime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.datetime" title="Permalink to this definition">¶</a></dt>
+<dt id="typeconvs.datetime_conv">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">datetime_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#datetime_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.datetime_conv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a string to a <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">format=None</span></code> this function uses
 <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime.fromisoformat" title="(in Python v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.datetime.fromisoformat()</span></code></a> else
@@ -257,12 +324,18 @@ the factor that corresponds to the symbol.</p>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.9)">datetime.datetime</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
 </dl>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.2.0: </span>Renamed (old name: datetime)</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
-<dt id="typeconvs.date">
-<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">date</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#date"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.date" title="Permalink to this definition">¶</a></dt>
+<dt id="typeconvs.date_conv">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">date_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#date_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.date_conv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a string to a class:<cite>datetime.date</cite>.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">format=None</span></code> this function uses
 <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date.fromisoformat" title="(in Python v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.date.fromisoformat()</span></code></a> else
@@ -280,12 +353,18 @@ the factor that corresponds to the symbol.</p>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.date" title="(in Python v3.9)">datetime.date</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
 </dl>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.2.0: </span>Renamed (old name: date)</p>
+</div>
 </dd></dl>
 
 <dl class="py function">
-<dt id="typeconvs.time">
-<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">time</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.time" title="Permalink to this definition">¶</a></dt>
+<dt id="typeconvs.time_conv">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">time_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#time_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.time_conv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert a string to a <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.time" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.time</span></code></a>.</p>
 <p>If <code class="docutils literal notranslate"><span class="pre">format=None</span></code> this function uses
 <a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.time.fromisoformat" title="(in Python v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">datetime.time.fromisoformat()</span></code></a> else
@@ -303,9 +382,86 @@ the factor that corresponds to the symbol.</p>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.time" title="(in Python v3.9)">datetime.time</a></p>
 </dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
 </dl>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 0.2.0: </span>Renamed (old name: time)</p>
+</div>
 </dd></dl>
 
+<dl class="py function">
+<dt id="typeconvs.range_conv">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">range_conv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">conv</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#range_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.range_conv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a range string.</p>
+<p>Range string: ‘&lt;start&gt;-&lt;end&gt;[/&lt;step&gt;]’ (default: &lt;step&gt; = 1)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">range_conv</span><span class="p">(</span><span class="s1">&#39;-2-4&#39;</span><span class="p">))</span>
+<span class="go">[-2, -1, 0, 1, 2, 3, 4]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">range_conv</span><span class="p">(</span><span class="s1">&#39;-2-4/2&#39;</span><span class="p">))</span>
+<span class="go">[-2, 0, 2, 4]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">range_conv</span><span class="p">(</span><span class="s1">&#39;4--2/-2&#39;</span><span class="p">))</span>
+<span class="go">[4, 2, 0, -2]</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">sequence</span><span class="p">(</span><span class="s1">&#39;1, -2-4/2, 42&#39;</span><span class="p">,</span> <span class="n">conv</span><span class="o">=</span><span class="n">range_conv</span><span class="p">)))</span>
+<span class="go">[1, -2, 0, 2, 4, 42]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – input string</p></li>
+<li><p><strong>conv</strong> – converter function which returns an int or a float value
+(default: <code class="docutils literal notranslate"><span class="pre">int</span></code>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>generator that yields converted values</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.2.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="typeconvs.sequence">
+<code class="sig-prename descclassname">typeconvs.</code><code class="sig-name descname">sequence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">string</span></em>, <em class="sig-param"><span class="o">*</span></em>, <em class="sig-param"><span class="n">conv</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">separator</span><span class="o">=</span><span class="default_value">','</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/typeconvs.html#sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#typeconvs.sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a sequence string.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sequence</span><span class="p">(</span><span class="s1">&#39;1, 2, 3&#39;</span><span class="p">,</span> <span class="n">conv</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="go">(1.0, 2.0, 3.0)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – input string</p></li>
+<li><p><strong>conv</strong> – converter function</p></li>
+<li><p><strong>separator</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – separator between elements of sequence</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>generator that yields converted values</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.9)"><strong>ValueError</strong></a> – if the string cannot be converted</p>
+</dd>
+</dl>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 0.2.0.</span></p>
+</div>
+</dd></dl>
+
+</div>
 </div>
 
 

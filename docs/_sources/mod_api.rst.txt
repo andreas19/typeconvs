@@ -1,0 +1,24 @@
+API Reference
+=============
+
+.. automodule:: typeconvs
+   :members:
+
+   Overview
+   --------
+
+   .. autosummary::
+      :nosignatures:
+
+      booleans
+      use_locale_default
+      bool_conv
+      int_conv
+      float_conv
+      factor_conv
+      duration
+      datetime_conv
+      date_conv
+      time_conv
+      range_conv
+      sequence
