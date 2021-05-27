@@ -1,6 +1,7 @@
 History
 -------
 
+**2021-05-27 (0.2.0)**
  - Add overview table to API documentation
  - All parameters but 'string' are now keyword-only
  - Add functions sequence and range_conv
