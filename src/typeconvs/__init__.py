@@ -2,7 +2,8 @@ r"""Converters from :class:`str` to another type.
 
 These functions can be used for the ``type`` parameter in methods of
 :class:`~argparse.ArgumentParser` and :class:`~argparsebuilder.ArgParseBuilder`
-or similar use cases.
+or similar use cases (if necessary in combination with
+:func:`functools.partial`).
 """
 
 import locale
