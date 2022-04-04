@@ -271,15 +271,15 @@ def duration(string, *, use_locale=None):
 
 
 _num_re = r'(?:\d(?:\.\d*)*)+'
-_range_re = re.compile(fr'^\s*(?P<start>[-+]?{_num_re})\s*-\s*'
-                       fr'(?P<end>[-+]?{_num_re})'
-                       fr'(?:\s*/\s*(?P<step>[-+]?{_num_re}))?\s*$')
+_range_re = (fr'^\s*(?P<start>[-+]?{_num_re})\s*%s\s*'
+             fr'(?P<end>[-+]?{_num_re})'
+             fr'(?:\s*/\s*(?P<step>[-+]?{_num_re}))?\s*$')
 
 
-def range_conv(string, *, conv=None):
+def range_conv(string, *, conv=None, separator='-'):
     """Convert a range string.
 
-    Range string: '<start>-<end>[/<step>]' (default: <step> = 1)
+    Range string: '<start><separator><end>[/<step>]' (default: <step> = 1)
 
     >>> list(range_conv('-2-4'))
     [-2, -1, 0, 1, 2, 3, 4]
@@ -290,6 +290,9 @@ def range_conv(string, *, conv=None):
     >>> list(range_conv('4--2/-2'))
     [4, 2, 0, -2]
 
+    >>> list(range_conv('4..-2/-2', separator='..'))
+    [4, 2, 0, -2]
+
     >>> from itertools import chain
     >>> list(chain.from_iterable(sequence('1, -2-4/2, 42', conv=range_conv)))
     [1, -2, 0, 2, 4, 42]
@@ -297,14 +300,17 @@ def range_conv(string, *, conv=None):
     :param str string: input string
     :param conv: converter function which returns an int or a float value
                  (default: ``int``)
+    :param str separator: separator between <start> and <end>
     :return: generator that yields converted values
     :raises ValueError: if the string cannot be converted
 
     .. versionadded:: 0.2.0
+
+    .. versionchanged:: 0.2.1 Add parameter ``separator``
     """
     if not conv:
         conv = int
-    if m := _range_re.match(string):
+    if m := re.match(_range_re % re.escape(separator), string):
         start = conv(m['start'])
         if not isinstance(start, (int, float)):
             raise ValueError('conv must return int or float')

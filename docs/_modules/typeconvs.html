@@ -5,10 +5,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>typeconvs &#8212; TypeConvs 0.2.0 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <title>typeconvs &#8212; TypeConvs 0.2.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
@@ -55,7 +55,7 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -351,15 +351,15 @@
 
 
 <span class="n">_num_re</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;(?:\d(?:\.\d*)*)+&#39;</span>
-<span class="n">_range_re</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;^\s*(?P&lt;start&gt;[-+]?</span><span class="si">{</span><span class="n">_num_re</span><span class="si">}</span><span class="s1">)\s*-\s*&#39;</span>
-                       <span class="sa">fr</span><span class="s1">&#39;(?P&lt;end&gt;[-+]?</span><span class="si">{</span><span class="n">_num_re</span><span class="si">}</span><span class="s1">)&#39;</span>
-                       <span class="sa">fr</span><span class="s1">&#39;(?:\s*/\s*(?P&lt;step&gt;[-+]?</span><span class="si">{</span><span class="n">_num_re</span><span class="si">}</span><span class="s1">))?\s*$&#39;</span><span class="p">)</span>
+<span class="n">_range_re</span> <span class="o">=</span> <span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;^\s*(?P&lt;start&gt;[-+]?</span><span class="si">{</span><span class="n">_num_re</span><span class="si">}</span><span class="s1">)\s*%s\s*&#39;</span>
+             <span class="sa">fr</span><span class="s1">&#39;(?P&lt;end&gt;[-+]?</span><span class="si">{</span><span class="n">_num_re</span><span class="si">}</span><span class="s1">)&#39;</span>
+             <span class="sa">fr</span><span class="s1">&#39;(?:\s*/\s*(?P&lt;step&gt;[-+]?</span><span class="si">{</span><span class="n">_num_re</span><span class="si">}</span><span class="s1">))?\s*$&#39;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="range_conv"><a class="viewcode-back" href="../mod_api.html#typeconvs.range_conv">[docs]</a><span class="k">def</span> <span class="nf">range_conv</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">conv</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="range_conv"><a class="viewcode-back" href="../mod_api.html#typeconvs.range_conv">[docs]</a><span class="k">def</span> <span class="nf">range_conv</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">conv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">separator</span><span class="o">=</span><span class="s1">&#39;-&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Convert a range string.</span>
 
-<span class="sd">    Range string: &#39;&lt;start&gt;-&lt;end&gt;[/&lt;step&gt;]&#39; (default: &lt;step&gt; = 1)</span>
+<span class="sd">    Range string: &#39;&lt;start&gt;&lt;separator&gt;&lt;end&gt;[/&lt;step&gt;]&#39; (default: &lt;step&gt; = 1)</span>
 
 <span class="sd">    &gt;&gt;&gt; list(range_conv(&#39;-2-4&#39;))</span>
 <span class="sd">    [-2, -1, 0, 1, 2, 3, 4]</span>
@@ -370,6 +370,9 @@
 <span class="sd">    &gt;&gt;&gt; list(range_conv(&#39;4--2/-2&#39;))</span>
 <span class="sd">    [4, 2, 0, -2]</span>
 
+<span class="sd">    &gt;&gt;&gt; list(range_conv(&#39;4..-2/-2&#39;, separator=&#39;..&#39;))</span>
+<span class="sd">    [4, 2, 0, -2]</span>
+
 <span class="sd">    &gt;&gt;&gt; from itertools import chain</span>
 <span class="sd">    &gt;&gt;&gt; list(chain.from_iterable(sequence(&#39;1, -2-4/2, 42&#39;, conv=range_conv)))</span>
 <span class="sd">    [1, -2, 0, 2, 4, 42]</span>
@@ -377,14 +380,17 @@
 <span class="sd">    :param str string: input string</span>
 <span class="sd">    :param conv: converter function which returns an int or a float value</span>
 <span class="sd">                 (default: ``int``)</span>
+<span class="sd">    :param str separator: separator between &lt;start&gt; and &lt;end&gt;</span>
 <span class="sd">    :return: generator that yields converted values</span>
 <span class="sd">    :raises ValueError: if the string cannot be converted</span>
 
 <span class="sd">    .. versionadded:: 0.2.0</span>
+
+<span class="sd">    .. versionchanged:: 0.2.1 Add parameter ``separator``</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">conv</span><span class="p">:</span>
         <span class="n">conv</span> <span class="o">=</span> <span class="nb">int</span>
-    <span class="k">if</span> <span class="n">m</span> <span class="o">:=</span> <span class="n">_range_re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">m</span> <span class="o">:=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">_range_re</span> <span class="o">%</span> <span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">separator</span><span class="p">),</span> <span class="n">string</span><span class="p">):</span>
         <span class="n">start</span> <span class="o">=</span> <span class="n">conv</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">])</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;conv must return int or float&#39;</span><span class="p">)</span>
@@ -429,10 +435,10 @@
     <div class="clearer"></div>
   </div>
     <div class="footer">
-      &copy;2021, Andreas Suhre.
+      &copy;2021-2022, Andreas Suhre.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.1</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.3.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
