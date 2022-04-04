@@ -1,6 +1,7 @@
 History
 -------
 
+**2022-04-04 (0.2.1)**
  - Add parameter separator to function range_conv
 
 **2021-05-27 (0.2.0)**
